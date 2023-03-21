@@ -1,4 +1,13 @@
-import java.sql.*;
+import dao.StuffDAO;
+import dao.impl.StuffDAOImpl;
+import models.City;
+import models.Stuff;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
 
@@ -8,8 +17,35 @@ public class Application {
         final String url = "jdbc:postgresql://localhost:5432/employee";
 
 
-
         try (Connection connection = DriverManager.getConnection(url, user, pass)) {
+
+            StuffDAO stuffDAO = new StuffDAOImpl(connection);
+
+            City city = new City(2);
+            Stuff man = new Stuff("Барт", "Симпсон", "male", 23, city);
+            //добавление в БД
+//            stuffDAO.create(man); - добавлено
+
+            List<Stuff> list = new ArrayList<>(stuffDAO.readAll());
+
+            for (Stuff stuff : list) {
+                System.out.println(stuff);
+            } // список печается
+
+
+//            stuffDAO.deleteEntityById(22); // удаление работает
+
+            stuffDAO.updateEntityById(2, 1); // изменение города работает.
+
+            System.out.println("stuffDAO.readById(2) = " + stuffDAO.readById(2)); // получение по id работает
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+/*        try (Connection connection = DriverManager.getConnection(url, user, pass)) {
 
             Statement statement = connection.createStatement();
 
@@ -36,6 +72,6 @@ public class Application {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
