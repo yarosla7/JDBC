@@ -14,7 +14,7 @@ public interface StuffDAO {
 
     List<Stuff> readAll();
 
-    void updateEntityById(int id, int cityId);
+    void updateStuffEntity(Stuff stuff);
 
-    void deleteEntityById(int id);
+    void deleteStuffEntity(Stuff stuff);
 }

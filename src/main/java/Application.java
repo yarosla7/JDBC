@@ -1,23 +1,28 @@
 import dao.StuffDAO;
 import dao.impl.StuffDAOImpl;
-import models.City;
 import models.Stuff;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Application {
 
     public static void main(String[] args) {
-        final String user = "postgres";
-        final String pass = "4theMoon";
-        final String url = "jdbc:postgresql://localhost:5432/employee";
 
+        StuffDAO stuffDAO = new StuffDAOImpl();
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass)) {
+        Stuff man = new Stuff("Лиза", "Симпсон", "female", 23, 2);
+
+//        stuffDAO.create(man); // в консоли всё красное, но операция работает корректно
+
+//        System.out.println(stuffDAO.readById(24)); // опять крсное, но выводит инфу, с лишними строками команд
+
+//          List<Stuff> stuffs = stuffDAO.readAll();
+//        for (Stuff stuff : stuffs) {
+//            System.out.println(stuff);
+//        } // в консоли обновил город там где был налл у id 7 и список выводится корректно.
+
+//        stuffDAO.updateStuffEntity(new Stuff(17,"Мардж", "Симпсон", "female",35,3)); //объект изменен. НО зачем так сложно?))) если у меня подключена базаданных через встроенный плагин и я могу в идее как в табличке Эксель всё менять?)))))
+
+        stuffDAO.deleteStuffEntity(new Stuff(2)); // добавил конструктор толькок с id, всё удалилось)
+        /*try (Connection connection = DriverManager.getConnection(url, user, pass)) {
 
             StuffDAO stuffDAO = new StuffDAOImpl(connection);
 
@@ -42,10 +47,10 @@ public class Application {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
-/*        try (Connection connection = DriverManager.getConnection(url, user, pass)) {
+        /*        try (Connection connection = DriverManager.getConnection(url, user, pass)) {
 
             Statement statement = connection.createStatement();
 
