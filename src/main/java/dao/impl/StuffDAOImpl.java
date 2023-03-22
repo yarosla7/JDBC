@@ -1,10 +1,10 @@
 package dao.impl;
 
 import dao.StuffDAO;
-import factory.HibernateSessionFactoryUtil;
 import models.Stuff;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import util.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
@@ -26,9 +26,7 @@ public class StuffDAOImpl implements StuffDAO {
     @Override
     public List<Stuff> readAll() {
 
-        return (List<Stuff>) HibernateSessionFactoryUtil
-                .getSessionFactory()
-                .openSession()
+        return (List<Stuff>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
                 .createQuery("FROM Stuff").list();
     }
 

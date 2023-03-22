@@ -1,5 +1,6 @@
-package factory;
+package util;
 
+import models.City;
 import models.Stuff;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,6 +18,7 @@ public class HibernateSessionFactoryUtil {
             try {
                 Configuration configuration = new Configuration().configure(); // Если нет, то мы загружаем настройки Hibernate из файла конфигурации
                 configuration.addAnnotatedClass(Stuff.class); // добавляем класс Stuff в список классов, обрабатываемых Hibernate
+                configuration.addAnnotatedClass(City.class); // добавляем класс City в список классов, обрабатываемых Hibernate
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties());  // создаем объект StandardServiceRegistryBuilder и применяем настройки из файла конфигурации
                 sessionFactory = configuration.buildSessionFactory(builder.build());  // тут создаем фабрику сессий на основе конфигурации и сервисного реестра

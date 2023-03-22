@@ -1,14 +1,11 @@
-import dao.StuffDAO;
-import dao.impl.StuffDAOImpl;
-import models.Stuff;
-
 public class Application {
 
     public static void main(String[] args) {
 
-        StuffDAO stuffDAO = new StuffDAOImpl();
 
-        Stuff man = new Stuff("Лиза", "Симпсон", "female", 23, 2);
+        //================================================================================
+
+//        Stuff man = new Stuff("Лиза", "Симпсон", "female", 23, new City(2));
 
 //        stuffDAO.create(man); // в консоли всё красное, но операция работает корректно
 
@@ -21,7 +18,7 @@ public class Application {
 
 //        stuffDAO.updateStuffEntity(new Stuff(17,"Мардж", "Симпсон", "female",35,3)); //объект изменен. НО зачем так сложно?))) если у меня подключена базаданных через встроенный плагин и я могу в идее как в табличке Эксель всё менять?)))))
 
-        stuffDAO.deleteStuffEntity(new Stuff(2)); // добавил конструктор толькок с id, всё удалилось)
+        //  stuffDAO.deleteStuffEntity(new Stuff(2)); // добавил конструктор толькок с id, всё удалилось)
         /*try (Connection connection = DriverManager.getConnection(url, user, pass)) {
 
             StuffDAO stuffDAO = new StuffDAOImpl(connection);
