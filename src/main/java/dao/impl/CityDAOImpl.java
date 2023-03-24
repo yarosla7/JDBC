@@ -11,13 +11,16 @@ import java.util.List;
 public class CityDAOImpl implements CityDAO {
     @Override
     public City findCityById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(City.class, id);
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return session.get(City.class, id);
+        }
     }
 
     @Override
     public List<City> getAllCities() {
-        return (List<City>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
-                .createQuery("FROM City").list();
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM City", City.class).list();
+        }
     }
 
     @Override
@@ -26,6 +29,7 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.save(city);
             transaction.commit();
+            session.close();
         }
     }
 
@@ -34,6 +38,7 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.update(city);
             transaction.commit();
+            session.close();
         }
     }
 
@@ -42,6 +47,7 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.delete(city);
             transaction.commit();
+            session.close();
         }
     }
 }

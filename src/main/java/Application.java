@@ -1,6 +1,26 @@
+import dao.CityDAO;
+import dao.StuffDAO;
+import dao.impl.CityDAOImpl;
+import dao.impl.StuffDAOImpl;
+import models.City;
+import models.Stuff;
+
 public class Application {
 
     public static void main(String[] args) {
+
+        CityDAO cityDAO = new CityDAOImpl();
+        StuffDAO stuffDAO = new StuffDAOImpl();
+
+
+        City city = new City(6, "Springfield");
+        Stuff liza = new Stuff(24, "Лиза", "Симпсон", "female", 23, city);
+//        cityDAO.create(city);
+//        System.out.println(cityDAO.getAllCities());
+
+//        stuffDAO.updateStuffEntity(liza);
+
+        System.out.println(cityDAO.getAllCities()); // если в toString оставить stufflist, то выдает ошибку failed to lazily - не разобрался
 
 
         //================================================================================

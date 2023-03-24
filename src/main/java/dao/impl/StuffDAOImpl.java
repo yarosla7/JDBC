@@ -15,19 +15,22 @@ public class StuffDAOImpl implements StuffDAO {
             Transaction transaction = session.beginTransaction();
             session.save(stuff);
             transaction.commit();
+            session.close();
         }
     }
 
     @Override
     public Stuff readById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Stuff.class, id);
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return session.get(Stuff.class, id);
+        }
     }
 
     @Override
     public List<Stuff> readAll() {
-
-        return (List<Stuff>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
-                .createQuery("FROM Stuff").list();
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Stuff", Stuff.class).list();
+        }
     }
 
     @Override
@@ -36,17 +39,17 @@ public class StuffDAOImpl implements StuffDAO {
             Transaction transaction = session.beginTransaction();
             session.update(stuff);
             transaction.commit();
+            session.close();
         }
     }
 
     @Override
     public void deleteStuffEntity(Stuff stuff) {
-
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-
             Transaction transaction = session.beginTransaction();
             session.delete(stuff);
             transaction.commit();
+            session.close();
         }
     }
 }
