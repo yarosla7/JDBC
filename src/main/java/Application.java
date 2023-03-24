@@ -20,7 +20,7 @@ public class Application {
 
 //        stuffDAO.updateStuffEntity(liza);
 
-        System.out.println(cityDAO.getAllCities()); // если в toString оставить stufflist, то выдает ошибку failed to lazily - не разобрался
+        System.out.println(stuffDAO.readByCity(city)); // если в toString оставить stufflist, то выдает ошибку failed to lazily - не разобрался
 
 
         //================================================================================

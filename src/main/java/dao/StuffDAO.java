@@ -1,5 +1,6 @@
 package dao;
 
+import models.City;
 import models.Stuff;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface StuffDAO {
     void create(Stuff stuff);
 
     Stuff readById(int id);
+
+    List<Stuff> readByCity(City city);
 
     List<Stuff> readAll();
 

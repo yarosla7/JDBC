@@ -21,7 +21,7 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Stuff> stuffList;
 
     public City(Integer city_id, String city_name) {

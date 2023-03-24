@@ -1,7 +1,9 @@
 package dao.impl;
 
 import dao.StuffDAO;
+import models.City;
 import models.Stuff;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateSessionFactoryUtil;
@@ -23,6 +25,15 @@ public class StuffDAOImpl implements StuffDAO {
     public Stuff readById(int id) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             return session.get(Stuff.class, id);
+        }
+    }
+
+    @Override
+    public List<Stuff> readByCity(City city) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("FROM Stuff s WHERE s.city = :city");
+            query.setParameter("city", city);
+            return (List<Stuff>) query.list();
         }
     }
 
