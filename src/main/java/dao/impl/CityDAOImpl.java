@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.CityDAO;
 import models.City;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateSessionFactoryUtil;
@@ -29,7 +30,15 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.save(city);
             transaction.commit();
-            session.close();
+        }
+    }
+
+    @Override
+    public List getStuffListByCityId(int id) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            City city2 = session.get(City.class, id);
+            Hibernate.initialize(city2.getStuffList());
+            return city2.getStuffList();
         }
     }
 
@@ -38,7 +47,6 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.update(city);
             transaction.commit();
-            session.close();
         }
     }
 
@@ -47,7 +55,6 @@ public class CityDAOImpl implements CityDAO {
             Transaction transaction = session.beginTransaction();
             session.delete(city);
             transaction.commit();
-            session.close();
         }
     }
 }

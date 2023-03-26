@@ -17,7 +17,6 @@ public class StuffDAOImpl implements StuffDAO {
             Transaction transaction = session.beginTransaction();
             session.save(stuff);
             transaction.commit();
-            session.close();
         }
     }
 
@@ -31,16 +30,16 @@ public class StuffDAOImpl implements StuffDAO {
     @Override
     public List<Stuff> readByCity(City city) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Stuff s WHERE s.city = :city");
-            query.setParameter("city", city);
-            return (List<Stuff>) query.list();
+            Query<Stuff> query = session.createQuery("FROM Stuff s JOIN FETCH s.city c WHERE c.cityName = :city", Stuff.class);
+            query.setParameter("city", city.getCityName());
+            return query.list();
         }
     }
 
     @Override
     public List<Stuff> readAll() {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Stuff", Stuff.class).list();
+            return session.createQuery("SELECT s FROM Stuff s LEFT JOIN FETCH s.city", Stuff.class).list();
         }
     }
 
@@ -50,7 +49,6 @@ public class StuffDAOImpl implements StuffDAO {
             Transaction transaction = session.beginTransaction();
             session.update(stuff);
             transaction.commit();
-            session.close();
         }
     }
 
@@ -60,7 +58,6 @@ public class StuffDAOImpl implements StuffDAO {
             Transaction transaction = session.beginTransaction();
             session.delete(stuff);
             transaction.commit();
-            session.close();
         }
     }
 }

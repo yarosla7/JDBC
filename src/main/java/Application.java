@@ -13,15 +13,15 @@ public class Application {
         StuffDAO stuffDAO = new StuffDAOImpl();
 
 
-        City city = new City(6, "Springfield");
-        Stuff liza = new Stuff(24, "Лиза", "Симпсон", "female", 23, city);
+        City city = new City(6, "Нью-Йорк");
 //        cityDAO.create(city);
 //        System.out.println(cityDAO.getAllCities());
 
 //        stuffDAO.updateStuffEntity(liza);
 
         System.out.println(stuffDAO.readByCity(city)); // если в toString оставить stufflist, то выдает ошибку failed to lazily - не разобрался
-
+        System.out.println(cityDAO.getAllCities());
+        System.out.println(cityDAO.getStuffListByCityId(2));
 
         //================================================================================
 

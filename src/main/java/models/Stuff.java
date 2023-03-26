@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @EqualsAndHashCode
-@Table(name = "stuff")
+@Table(name = "employee")
 public class Stuff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

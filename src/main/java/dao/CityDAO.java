@@ -11,6 +11,8 @@ public interface CityDAO {
 
     void create(City city);
 
+    List getStuffListByCityId(int id);
+
     void update(City city);
 
     void delete(City city);

@@ -21,7 +21,7 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(fetch =  FetchType.EAGER, mappedBy = "city")
     private List<Stuff> stuffList;
 
     public City(Integer city_id, String city_name) {
@@ -40,7 +40,7 @@ public class City {
     public String toString() {
         return "City{" +
                 "city_id=" + cityId +
-                ", city_name='" + cityName + '\'' + stuffList +
+                ", city_name='" + cityName + '\'' +
                 '}';
     }
 }
